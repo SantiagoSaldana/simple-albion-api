@@ -49,50 +49,20 @@ npx tsx node_modules/simple-albion-api/examples/basic-usage.ts
 
 ## 🚀 Quick Start
 
-### TypeScript / ES Modules with Top-Level Await
-
-To use top-level await (without wrapping in an async function), you need ES module support:
+### TypeScript / ES Modules
 
 ```typescript
 // my-script.ts
 import { AlbionAPI } from 'simple-albion-api';
 
-const client = new AlbionAPI();
-
-// Search for a guild
-const searchResults = await client.search('TEMPLARS_ORDER');
-console.log(searchResults.guilds);
-
-// Get guild members
-const guildId = await client.getGuildId('TEMPLARS_ORDER');
-const members = await client.getGuildMembers(guildId);
-console.log(members);
-```
-
-**To run with top-level await, use one of these methods:**
-
-```bash
-# Method 1: Using tsx (recommended)
-npx tsx my-script.ts
-
-# Method 2: Using ts-node with module config
-# Add "type": "module" to package.json, then:
-npx ts-node my-script.ts
-```
-
-### TypeScript / ES Modules with Async Function
-
-Alternatively, wrap your code in an async function (works without special configuration):
-
-```typescript
-import { AlbionAPI } from 'simple-albion-api';
-
 async function main() {
   const client = new AlbionAPI();
 
+  // Search for a guild
   const searchResults = await client.search('TEMPLARS_ORDER');
   console.log(searchResults.guilds);
 
+  // Get guild members
   const guildId = await client.getGuildId('TEMPLARS_ORDER');
   const members = await client.getGuildMembers(guildId);
   console.log(members);
@@ -101,10 +71,12 @@ async function main() {
 main().catch(console.error);
 ```
 
-**Run this version:**
+**Run with tsx:**
 ```bash
-npx ts-node my-script.ts
+npx tsx my-script.ts
 ```
+
+> **Note:** For top-level await (without the `main()` function), add `"type": "module"` to your package.json
 
 ### JavaScript / CommonJS
 
