@@ -369,7 +369,7 @@ This project maintains the same MIT license as the original [albion-api-client](
 
 - **Original Python Library**: [albion-api-client](https://github.com/proelke/albion-api-client)
 - **Albion Online**: [Official Website](https://albiononline.com/)
-- **Albion Online API Documentation**: [Developer Portal](https://albiononline.com/developers)
+- **Albion Online API Information**: [tools4albion.com](https://www.tools4albion.com/api_info.php)
 
 ## ⚠️ Disclaimer
 
