@@ -1,3 +1,15 @@
+# NPM token and config
+.npmrc
+
+# Environment files with tokens
+.env
+.env.local
+.env.*.local
+
+# Any specific token files you might have
+npm-token.txt
+.npm-token
+
 # Dependencies
 node_modules/
 

@@ -14,7 +14,9 @@
   },
   "files": [
     "dist",
+    "examples",
     "README.md",
+    "SETUP_GUIDE.md",
     "LICENSE"
   ],
   "scripts": {

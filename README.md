@@ -27,11 +27,16 @@ All credit for the API design and original implementation goes to Patrick Roelke
 npm install simple-albion-api
 ```
 
+> **📘 New to TypeScript or ES Modules?** Check out the [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed instructions on running TypeScript code with top-level await and ES modules.
+
 ## 🚀 Quick Start
 
-### TypeScript / ES Modules
+### TypeScript / ES Modules with Top-Level Await
+
+To use top-level await (without wrapping in an async function), you need ES module support:
 
 ```typescript
+// my-script.ts
 import { AlbionAPI } from 'simple-albion-api';
 
 const client = new AlbionAPI();
@@ -46,17 +51,57 @@ const members = await client.getGuildMembers(guildId);
 console.log(members);
 ```
 
+**To run with top-level await, use one of these methods:**
+
+```bash
+# Method 1: Using tsx (recommended)
+npx tsx my-script.ts
+
+# Method 2: Using ts-node with module config
+# Add "type": "module" to package.json, then:
+npx ts-node my-script.ts
+```
+
+### TypeScript / ES Modules with Async Function
+
+Alternatively, wrap your code in an async function (works without special configuration):
+
+```typescript
+import { AlbionAPI } from 'simple-albion-api';
+
+async function main() {
+  const client = new AlbionAPI();
+
+  const searchResults = await client.search('TEMPLARS_ORDER');
+  console.log(searchResults.guilds);
+
+  const guildId = await client.getGuildId('TEMPLARS_ORDER');
+  const members = await client.getGuildMembers(guildId);
+  console.log(members);
+}
+
+main().catch(console.error);
+```
+
+**Run this version:**
+```bash
+npx ts-node my-script.ts
+```
+
 ### JavaScript / CommonJS
 
 ```javascript
 const { AlbionAPI } = require('simple-albion-api');
 
-const client = new AlbionAPI();
+async function main() {
+  const client = new AlbionAPI();
 
-// Search for a player
-client.search('PlayerName').then(results => {
+  // Search for a player
+  const results = await client.search('PlayerName');
   console.log(results.players);
-});
+}
+
+main().catch(console.error);
 ```
 
 ## 🌍 Server Selection
@@ -291,16 +336,65 @@ npm run build
 
 ## 📄 Examples
 
-Check out the `examples/` directory for more usage examples:
+The library includes example scripts that are available after installation.
+
+### Available Examples
 
 - `examples/basic-usage.ts` - Comprehensive API usage examples
-- `examples/guild-members.ts` - Fetch guild members across all servers
+- `examples/guild-members.ts` - Fetch guild members across all servers (port of `test_albion.py`)
 
-To run an example:
+### Running Examples After Installation
+
+After installing the package with `npm install simple-albion-api`, the examples are available in your `node_modules`:
 
 ```bash
-npx ts-node examples/basic-usage.ts
+# Using tsx (handles ES modules and top-level await)
+npx tsx node_modules/simple-albion-api/examples/guild-members.ts
+npx tsx node_modules/simple-albion-api/examples/basic-usage.ts
+
+# Or copy the examples to your project
+cp node_modules/simple-albion-api/examples/*.ts .
+npx tsx guild-members.ts
 ```
+
+### Running Examples from Source
+
+If you've cloned the repository:
+
+```bash
+# Using npm scripts (recommended)
+npm run example:guild
+npm run example:basic
+
+# Or directly with ts-node
+npx ts-node --project tsconfig.examples.json examples/guild-members.ts
+npx ts-node --project tsconfig.examples.json examples/basic-usage.ts
+```
+
+### Important Notes for TypeScript Projects
+
+The examples use **top-level await** and **ES module imports**. To run them in your own TypeScript project:
+
+1. **Option 1 (Recommended)**: Use `tsx` which handles everything automatically
+   ```bash
+   npx tsx your-script.ts
+   ```
+
+2. **Option 2**: Configure your project for ES modules
+   - Add `"type": "module"` to your `package.json`
+   - Then use: `npx ts-node your-script.ts`
+
+3. **Option 3**: Wrap code in an async function (no special config needed)
+   ```typescript
+   import { AlbionAPI } from 'simple-albion-api';
+
+   async function main() {
+     const client = new AlbionAPI();
+     // Your code here
+   }
+
+   main().catch(console.error);
+   ```
 
 ## 🤝 Contributing
 
