@@ -1,0 +1,343 @@
+# Simple Albion API
+
+A TypeScript/Node.js API client for Albion Online, providing easy access to game information including players, guilds, events, and battles.
+
+## 🙏 Attribution
+
+This library is a **TypeScript port** of the original Python library [**albion-api-client**](https://github.com/proelke/albion-api-client) created by **Patrick Roelke** ([@proelke](https://github.com/proelke)).
+
+All credit for the API design and original implementation goes to Patrick Roelke. This port maintains the same API interface and functionality while adapting it for the TypeScript/Node.js ecosystem.
+
+- **Original Python Library**: [albion-api-client](https://github.com/proelke/albion-api-client)
+- **Original Author**: Patrick Roelke (proelke@gmail.com)
+- **License**: MIT
+
+## ✨ Features
+
+- **Full TypeScript Support** - Complete type definitions for all API responses
+- **Dual Module Support** - Works with both CommonJS (`require`) and ES Modules (`import`)
+- **Multi-Server Support** - Access data from Americas, Europe, and Asia servers
+- **Comprehensive API Coverage** - Player stats, guild information, events, battles, and more
+- **Promise-Based** - Modern async/await syntax
+- **Lightweight** - Minimal dependencies (only axios)
+
+## 📦 Installation
+
+```bash
+npm install simple-albion-api
+```
+
+## 🚀 Quick Start
+
+### TypeScript / ES Modules
+
+```typescript
+import { AlbionAPI } from 'simple-albion-api';
+
+const client = new AlbionAPI();
+
+// Search for a guild
+const searchResults = await client.search('TEMPLARS_ORDER');
+console.log(searchResults.guilds);
+
+// Get guild members
+const guildId = await client.getGuildId('TEMPLARS_ORDER');
+const members = await client.getGuildMembers(guildId);
+console.log(members);
+```
+
+### JavaScript / CommonJS
+
+```javascript
+const { AlbionAPI } = require('simple-albion-api');
+
+const client = new AlbionAPI();
+
+// Search for a player
+client.search('PlayerName').then(results => {
+  console.log(results.players);
+});
+```
+
+## 🌍 Server Selection
+
+The library supports all three Albion Online servers:
+
+```typescript
+import { AlbionAPI } from 'simple-albion-api';
+
+// Americas (default)
+const americasClient = new AlbionAPI({ server: 'americas' });
+
+// Europe
+const europeClient = new AlbionAPI({ server: 'europe' });
+
+// Asia
+const asiaClient = new AlbionAPI({ server: 'asia' });
+```
+
+## 📖 API Documentation
+
+### Player Methods
+
+#### `getPlayerId(playerName: string): Promise<string>`
+Get player ID by player name.
+
+```typescript
+const playerId = await client.getPlayerId('PlayerName');
+```
+
+#### `getPlayerInfo(playerId: string): Promise<PlayerInfo>`
+Get detailed player information.
+
+```typescript
+const playerInfo = await client.getPlayerInfo(playerId);
+console.log(playerInfo.Name, playerInfo.KillFame);
+```
+
+#### `getPlayerTopkills(playerId: string, offset?: number, limit?: number, range?: RangeType): Promise<Event[]>`
+Get player's top kills.
+
+```typescript
+const topKills = await client.getPlayerTopkills(playerId, 0, 10, 'week');
+```
+
+#### `getPlayerSolokills(playerId: string, offset?: number, limit?: number, range?: RangeType): Promise<Event[]>`
+Get player's solo kills.
+
+```typescript
+const soloKills = await client.getPlayerSolokills(playerId, 0, 10, 'month');
+```
+
+#### `getPlayerDeath(playerId: string): Promise<Event[]>`
+Get player's deaths.
+
+```typescript
+const deaths = await client.getPlayerDeath(playerId);
+```
+
+### Guild Methods
+
+#### `getGuildId(guildName: string): Promise<string>`
+Get guild ID by guild name.
+
+```typescript
+const guildId = await client.getGuildId('GuildName');
+```
+
+#### `getGuildInfo(guildId: string): Promise<GuildInfo>`
+Get detailed guild information.
+
+```typescript
+const guildInfo = await client.getGuildInfo(guildId);
+console.log(guildInfo.Name, guildInfo.MemberCount);
+```
+
+#### `getGuildMembers(guildId: string): Promise<GuildMember[]>`
+Get list of guild members.
+
+```typescript
+const members = await client.getGuildMembers(guildId);
+members.forEach(member => console.log(member.Name));
+```
+
+#### `getGuildStats(guildId: string): Promise<any>`
+Get guild statistics.
+
+```typescript
+const stats = await client.getGuildStats(guildId);
+```
+
+#### `getGuildTopKills(guildId: string, offset?: number, limit?: number, range?: RangeType): Promise<any>`
+Get guild's top kills.
+
+```typescript
+const topKills = await client.getGuildTopKills(guildId, 0, 20, 'week');
+```
+
+### Event Methods
+
+#### `getEvent(eventId: number): Promise<Event>`
+Get specific event by ID.
+
+```typescript
+const event = await client.getEvent(123456);
+```
+
+#### `getRecentEvents(limit?: number, offset?: number): Promise<Event[]>`
+Get recent events.
+
+```typescript
+const events = await client.getRecentEvents(50, 0);
+```
+
+#### `getEventsBetween(startEvent: number, endEvent: number): Promise<Event[]>`
+Get events between two event IDs.
+
+```typescript
+const events = await client.getEventsBetween(100000, 100100);
+```
+
+### Battle Methods
+
+#### `getBattles(offset?: number, limit?: number, range?: RangeType, sort?: SortType): Promise<Battle[]>`
+Get battles with optional filtering.
+
+```typescript
+const battles = await client.getBattles(0, 20, 'week', 'topfame');
+```
+
+### Search Methods
+
+#### `search(query: string): Promise<SearchResult>`
+Search for players and guilds.
+
+```typescript
+const results = await client.search('SearchTerm');
+console.log(results.players);
+console.log(results.guilds);
+```
+
+### Ranking Methods
+
+#### `topPlayerKillFame(offset?: number, limit?: number, range?: RangeType): Promise<any>`
+Get top players by kill fame.
+
+```typescript
+const topPlayers = await client.topPlayerKillFame(0, 50, 'month');
+```
+
+#### `topGuildKillFame(offset?: number, limit?: number, range?: RangeType): Promise<any>`
+Get top guilds by kill fame.
+
+```typescript
+const topGuilds = await client.topGuildKillFame(0, 50, 'week');
+```
+
+#### `topGuildsByAttack(offset?: number, limit?: number, range?: RangeType): Promise<any>`
+Get top guilds by attack points.
+
+#### `topGuildsByDefense(offset?: number, limit?: number, range?: RangeType): Promise<any>`
+Get top guilds by defense points.
+
+#### `playerWeaponRanking(offset?: number, limit?: number, range?: RangeType): Promise<any>`
+Get player weapon rankings.
+
+### Other Methods
+
+#### `getServerStatus(server?: ServerStatusType): Promise<any>`
+Get Albion Online server status.
+
+```typescript
+const status = await client.getServerStatus('live');
+```
+
+#### `getWeaponCategories(): Promise<string[]>`
+Get list of weapon categories.
+
+```typescript
+const categories = await client.getWeaponCategories();
+```
+
+## 📝 Types
+
+The library exports TypeScript types for all API responses:
+
+```typescript
+import type {
+  ServerType,
+  RangeType,
+  SortType,
+  SearchResult,
+  PlayerInfo,
+  GuildInfo,
+  GuildMember,
+  Event,
+  Battle,
+} from 'simple-albion-api';
+```
+
+### Available Types
+
+- `ServerType`: `'americas' | 'europe' | 'asia'`
+- `RangeType`: `'week' | 'lastWeek' | 'month' | 'lastMonth'`
+- `SortType`: `'recent' | 'topfame'`
+- `ServerStatusType`: `'live' | 'staging'`
+
+## 🧪 Running Tests
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+## 🔨 Building from Source
+
+```bash
+# Install dependencies
+npm install
+
+# Build the library
+npm run build
+
+# This will create:
+# - dist/cjs/     - CommonJS modules
+# - dist/esm/     - ES modules
+# - dist/types/   - TypeScript definitions
+```
+
+## 📄 Examples
+
+Check out the `examples/` directory for more usage examples:
+
+- `examples/basic-usage.ts` - Comprehensive API usage examples
+- `examples/guild-members.ts` - Fetch guild members across all servers
+
+To run an example:
+
+```bash
+npx ts-node examples/basic-usage.ts
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📜 License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project maintains the same MIT license as the original [albion-api-client](https://github.com/proelke/albion-api-client) by Patrick Roelke.
+
+## 🔗 Links
+
+- **Original Python Library**: [albion-api-client](https://github.com/proelke/albion-api-client)
+- **Albion Online**: [Official Website](https://albiononline.com/)
+- **Albion Online API Documentation**: [Developer Portal](https://albiononline.com/developers)
+
+## ⚠️ Disclaimer
+
+This is an unofficial API client. It is not affiliated with or endorsed by Sandbox Interactive GmbH or Albion Online.
+
+## 💬 Support
+
+If you encounter any issues or have questions:
+
+1. Check the [examples](./examples) directory
+2. Review the [original Python library documentation](https://github.com/proelke/albion-api-client)
+3. Open an issue on GitHub
+
+---
+
+**Made with ❤️ for the Albion Online community**
+
+*Ported from [albion-api-client](https://github.com/proelke/albion-api-client) by Patrick Roelke*

@@ -1,0 +1,28 @@
+# Source files (only ship compiled code)
+src/
+tests/
+examples/
+
+# Config files
+tsconfig*.json
+jest.config.js
+.gitignore
+.npmignore
+
+# Documentation (except README and LICENSE)
+docs/
+
+# Development files
+*.test.ts
+*.spec.ts
+
+# Build artifacts
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
