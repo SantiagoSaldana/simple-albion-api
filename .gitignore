@@ -14,7 +14,7 @@ npm-token.txt
 node_modules/
 
 # Build outputs
-dist/
+# dist/ - Keep dist in repo for GitHub installs
 build/
 *.tsbuildinfo
 
