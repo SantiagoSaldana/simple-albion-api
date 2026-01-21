@@ -23,19 +23,11 @@ All credit for the API design and original implementation goes to Patrick Roelke
 
 ## 📦 Installation
 
-### Install from npm
-
-```bash
-npm install simple-albion-api
-```
-
-### Install from GitHub
-
 ```bash
 npm install github:SantiagoSaldana/simple-albion-api
 ```
 
-After installing from GitHub, you can run the included examples:
+After installing, you can run the included examples:
 
 ```bash
 # Run the guild members example
