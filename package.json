@@ -40,10 +40,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/simple-albion-api.git"
+    "url": "https://github.com/SantiagoSaldana/simple-albion-api.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/simple-albion-api/issues"
+    "url": "https://github.com/SantiagoSaldana/simple-albion-api/issues"
   },
   "engines": {
     "node": ">=16.0.0"
