@@ -23,8 +23,26 @@ All credit for the API design and original implementation goes to Patrick Roelke
 
 ## 📦 Installation
 
+### Install from npm
+
 ```bash
 npm install simple-albion-api
+```
+
+### Install from GitHub
+
+```bash
+npm install github:SantiagoSaldana/simple-albion-api
+```
+
+After installing from GitHub, you can run the included examples:
+
+```bash
+# Run the guild members example
+npx tsx node_modules/simple-albion-api/examples/guild-members.ts
+
+# Or run the basic usage example
+npx tsx node_modules/simple-albion-api/examples/basic-usage.ts
 ```
 
 > **📘 New to TypeScript or ES Modules?** Check out the [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed instructions on running TypeScript code with top-level await and ES modules.
