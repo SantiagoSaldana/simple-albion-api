@@ -7,7 +7,7 @@
  * Translated from the Python test program test_albion.py
  */
 
-import { AlbionAPI, ServerType } from '../src';
+import { AlbionAPI, ServerType } from 'simple-albion-api';
 
 // Test TEMPLARS_ORDER guild across all 3 servers
 const servers: Record<ServerType, string> = {

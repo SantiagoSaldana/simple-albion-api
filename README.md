@@ -336,65 +336,36 @@ npm run build
 
 ## 📄 Examples
 
-The library includes example scripts that are available after installation.
+The library includes example scripts demonstrating API usage.
 
 ### Available Examples
 
-- `examples/basic-usage.ts` - Comprehensive API usage examples
-- `examples/guild-members.ts` - Fetch guild members across all servers (port of `test_albion.py`)
+- `basic-usage.ts` - Comprehensive API usage examples
+- `guild-members.ts` - Fetch guild members across all servers
 
-### Running Examples After Installation
+### Running Examples
 
-After installing the package with `npm install simple-albion-api`, the examples are available in your `node_modules`:
+Install from GitHub and run examples:
 
 ```bash
-# Using tsx (handles ES modules and top-level await)
-npx tsx node_modules/simple-albion-api/examples/guild-members.ts
-npx tsx node_modules/simple-albion-api/examples/basic-usage.ts
+# 1. Install from GitHub
+npm install github:SantiagoSaldana/simple-albion-api
 
-# Or copy the examples to your project
-cp node_modules/simple-albion-api/examples/*.ts .
-npx tsx guild-members.ts
+# 2. Run examples
+npx tsx node_modules/simple-albion-api/examples/basic-usage.ts
+npx tsx node_modules/simple-albion-api/examples/guild-members.ts
 ```
 
-### Running Examples from Source
+### Running from Source Repository
 
 If you've cloned the repository:
 
 ```bash
-# Using npm scripts (recommended)
-npm run example:guild
-npm run example:basic
-
-# Or directly with ts-node
-npx ts-node --project tsconfig.examples.json examples/guild-members.ts
-npx ts-node --project tsconfig.examples.json examples/basic-usage.ts
+npm install
+npm run build
+npx tsx examples/basic-usage.ts
+npx tsx examples/guild-members.ts
 ```
-
-### Important Notes for TypeScript Projects
-
-The examples use **top-level await** and **ES module imports**. To run them in your own TypeScript project:
-
-1. **Option 1 (Recommended)**: Use `tsx` which handles everything automatically
-   ```bash
-   npx tsx your-script.ts
-   ```
-
-2. **Option 2**: Configure your project for ES modules
-   - Add `"type": "module"` to your `package.json`
-   - Then use: `npx ts-node your-script.ts`
-
-3. **Option 3**: Wrap code in an async function (no special config needed)
-   ```typescript
-   import { AlbionAPI } from 'simple-albion-api';
-
-   async function main() {
-     const client = new AlbionAPI();
-     // Your code here
-   }
-
-   main().catch(console.error);
-   ```
 
 ## 🤝 Contributing
 

@@ -8,7 +8,7 @@
  * - Fetching battle data
  */
 
-import { AlbionAPI } from '../src';
+import { AlbionAPI } from 'simple-albion-api';
 
 async function basicExample() {
   // Create a new API client (defaults to Americas server)
