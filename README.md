@@ -73,14 +73,20 @@ npx tsx my-script.ts
 ### JavaScript / CommonJS
 
 ```javascript
+// my-script.js
 const { AlbionAPI } = require('simple-albion-api');
 
 async function main() {
   const client = new AlbionAPI();
 
-  // Search for a player
-  const results = await client.search('PlayerName');
-  console.log(results.players);
+  // Search for a guild
+  const searchResults = await client.search('TEMPLARS_ORDER');
+  console.log(searchResults.guilds);
+
+  // Get guild members
+  const guildId = await client.getGuildId('TEMPLARS_ORDER');
+  const members = await client.getGuildMembers(guildId);
+  console.log(members);
 }
 
 main().catch(console.error);
